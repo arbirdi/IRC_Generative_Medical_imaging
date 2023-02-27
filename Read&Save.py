@@ -8,6 +8,15 @@ There are some serious problems with this code.
 The images should be 512 by 512
 However, the program saves the images as 217 by 217
 I cannot solve this problem by now
+
+To run this code, you need to use:
+
+pip install numpy==1.21
+
+to install version 1.21 of numpy
+
+You also need two folders in the same directory as the code: Data and Fig
+Data stores the mat files, and Fig stores the images generated
 """
 
 import mat73
