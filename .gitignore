@@ -1,0 +1,4 @@
+2d_data.npy
+outputs/*
+hpc/__pycache__/*
+wandb/*

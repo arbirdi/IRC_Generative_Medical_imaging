@@ -1,9 +1,10 @@
 import tensorflow as tf 
 import matplotlib.pyplot as plt 
+import wandb
 
 # Notice the use of `tf.function`
 # This annotation causes the function to be "compiled".
-@tf.function
+# @tf.function
 def train_step(images, BATCH_SIZE, noise_dim, generator, discriminator, generator_optimizer, discriminator_optimizer, generator_loss, discriminator_loss):
     noise = tf.random.normal([BATCH_SIZE, noise_dim])
 
@@ -22,6 +23,12 @@ def train_step(images, BATCH_SIZE, noise_dim, generator, discriminator, generato
     generator_optimizer.apply_gradients(zip(gradients_of_generator, generator.trainable_variables))
     discriminator_optimizer.apply_gradients(zip(gradients_of_discriminator, discriminator.trainable_variables))
 
+    wandb.log(
+            {'discriminator_loss': disc_loss,
+            'generator_loss': gen_loss
+            }
+            )
+
 def generate_and_save_images(model, epoch, test_input):
   # Notice `training` is set to False.
   # This is so all layers run in inference mode (batchnorm).
@@ -36,5 +43,5 @@ def generate_and_save_images(model, epoch, test_input):
     
     plt.title("16 images at epoch {epoch}")
 
-    plt.savefig('image_at_epoch_{:04d}_2_at_{time.strftime("%H:%M:%S", time.localtime())}.png'.format(epoch))
-    plt.show()
+    plt.savefig('outputs/image_at_epoch_{:04d}.png'.format(epoch))
+    #plt.show()

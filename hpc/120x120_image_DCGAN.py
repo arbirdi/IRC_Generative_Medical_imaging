@@ -10,18 +10,26 @@ from model import make_discriminator_model, make_generator_model
 from train import generate_and_save_images, train_step
 from IPython import display
 import argparse
+import wandb
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', default='vae', help='model for dimensionality reduction')
 parser.add_argument('--prefix', default='/home/emily/phd/drives/IRC_Generative_Medical_imaging/', help='when using RDS')
 parser.add_argument('--EPOCHS', default=50,type=int, help='epochs to train')
 parser.add_argument('--IMG_DIM', default=120,type=int, help='input size of img')
-parser.add_argument('--BATCH_SIZE', default=200,type=int, help='number ')
+parser.add_argument('--BATCH_SIZE', default=100,type=int, help='number ')
 parser.add_argument('--BUFFER_SIZE', default=4455,type=int, help='number ')
 parser.add_argument('--LATENT_DIM', default= 128, type=int, help='dataset')
 parser.add_argument('--wandb_name', default='dummy',type=str, help='name of run')
 opt = parser.parse_args()
 print(opt)
+
+# SETUP WANDB
+wandb.login(key='') # ENTER KEY TO WANDB LOGIN HERE
+# Pass them to wandb.init
+wandb.init(config=opt)
+# Access all hyperparameter values through wandb.config
+wandb.init(id = opt.wandb_name, project='IRC', entity='emilymuller1991')
 
 # DEVICES
 physical_devices = tf.config.list_physical_devices("GPU")
@@ -38,7 +46,8 @@ for i in range(train_images.shape[0]):
     resized_training_images[i] = train_images[i,::2,::2,:]#training_image[::2,::2,:]
 
 # Batch and shuffle the data
-train_dataset = tf.data.Dataset.from_tensor_slices(resized_training_images).shuffle(BUFFER_SIZE).batch(BATCH_SIZE)
+train_dataset = tf.data.Dataset.from_tensor_slices(resized_training_images).shuffle(opt.BUFFER_SIZE).batch(opt.BATCH_SIZE)
+del train_images
 
 # MODEL
 generator = make_generator_model(opt.LATENT_DIM)
@@ -72,7 +81,7 @@ for epoch in range(opt.EPOCHS):
     start = time.time()
     print(time.strftime("%H:%M:%S", time.localtime()))
 
-    for image_batch in dataset:
+    for image_batch in train_dataset:
         train_step(image_batch, opt.BATCH_SIZE, opt.LATENT_DIM, generator, discriminator, generator_optimizer, discriminator_optimizer, generator_loss, discriminator_loss)
 
     # Produce images for the GIF as you go
@@ -80,6 +89,7 @@ for epoch in range(opt.EPOCHS):
     generate_and_save_images(generator,
                              epoch + 1,
                              seed)
+
 
     # Save the model every 15 epochs
     if (epoch + 1) % 15 == 0:
