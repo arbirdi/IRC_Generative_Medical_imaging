@@ -25,7 +25,7 @@ opt = parser.parse_args()
 print(opt)
 
 # SETUP WANDB
-wandb.login(key='') # ENTER KEY TO WANDB LOGIN HERE
+wandb.login(key='929507aa6962c12d80d4911b183780dfd225bef6') # ENTER KEY TO WANDB LOGIN HERE
 # Pass them to wandb.init
 wandb.init(config=opt)
 # Access all hyperparameter values through wandb.config
