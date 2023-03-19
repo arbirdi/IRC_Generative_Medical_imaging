@@ -18,3 +18,5 @@ Our poster submission is within the main branch ('Template_2.pptx' - collaborati
 Muzammil and Muyi largely focused on dataset acquisition and researched information privacy and protection concerns.
 
 The GitHub Repo and this README were managed by Aidan.
+
+For references, see poster submission and project proposal submission.
