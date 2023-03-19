@@ -14,3 +14,5 @@ Selected preliminary and prototype models are found within /Selected 120x120 GAN
 We have not uploaded the majority of input data here for file size constraint reasons (over 1GB) as well as data privacy reasons.
 
 Our poster submission is within the main branch (Template_2.pptx - collaboratively written by Zijia, Aidan, Muzammil and Muyi), as well as our project proposal (IRC_final_project_proposal.pdf - collaboratively written by Zijia, Aidan, Muzammil and Muyi).
+
+The GitHub Repo and this README were managed by Aidan.
