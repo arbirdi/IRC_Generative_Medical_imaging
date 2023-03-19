@@ -15,4 +15,6 @@ We have not uploaded the majority of input data here for file size constraint re
 
 Our poster submission is within the main branch ('Template_2.pptx' - collaboratively written by Zijia, Aidan, Muzammil and Muyi), as well as our project proposal ('IRC_final_project_proposal.pdf' - collaboratively written by Zijia, Aidan, Muzammil and Muyi).
 
+Muzammil and Muyi largely focused on dataset acquisition and researched information privacy and protection concerns.
+
 The GitHub Repo and this README were managed by Aidan.
